@@ -160,7 +160,7 @@ const Dashboard = ({ onLogout }) => {
               {/* Map Container */}
               <div className="map-container fade-in">
                 <h2 className="map-title">Tourist Safety Map</h2>
-                <TouristMap tourists={tourists} />
+                <EnhancedMap tourists={tourists} />
               </div>
 
               {/* Zone Scores */}
