@@ -223,35 +223,71 @@ const Dashboard = ({ onLogout }) => {
 
         {activeTab === 'reports' && (
           <div className="fade-in">
-            <h2 className="section-title">Incident Reports</h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="section-title">Incident Reports & FIRs</h2>
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                + New FIR
+              </button>
+            </div>
             <div className="space-y-4">
               {incidents.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-gray-400">No incidents reported</p>
+                  <div className="text-6xl mb-4">📋</div>
+                  <p className="text-gray-400 text-lg">No incidents reported</p>
+                  <p className="text-gray-500 text-sm mt-2">All tourists are safe and accounted for</p>
                 </div>
               ) : (
                 incidents.map((incident) => (
-                  <div key={incident.id} className="stat-card">
+                  <div key={incident.id} className="stat-card hover:border-blue-400/40 transition-all duration-300 cursor-pointer" 
+                       onClick={() => {
+                         setSelectedFIR(incident);
+                         setIsFIRModalOpen(true);
+                       }}>
                     <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-semibold text-white mb-2">{incident.type}</h4>
-                        <p className="text-gray-300 mb-2">{incident.description}</p>
-                        <p className="text-sm text-gray-400">
-                          Severity: <span className={`font-semibold ${
-                            incident.severity === 'critical' ? 'text-red-400' :
-                            incident.severity === 'high' ? 'text-orange-400' :
-                            incident.severity === 'medium' ? 'text-yellow-400' :
-                            'text-green-400'
-                          }`}>{incident.severity}</span>
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <div className={`status-badge ${incident.status === 'open' ? 'missing' : 'active'}`}>
-                          {incident.status}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                            {incident.type === 'panic' ? '🚨' : 
+                             incident.type === 'medical' ? '🏥' : 
+                             incident.type === 'missing' ? '🔍' : '⚠️'}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-white text-lg capitalize">{incident.type} Alert</h4>
+                            <p className="text-sm text-gray-400">FIR #{incident.id.slice(0, 8)}</p>
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-400 mt-2">
-                          {new Date(incident.reported_at).toLocaleDateString()}
-                        </p>
+                        <p className="text-gray-300 mb-3 leading-relaxed">{incident.description}</p>
+                        <div className="flex flex-wrap gap-4 text-sm">
+                          <span className="text-gray-400">
+                            <strong>Tourist ID:</strong> {incident.tourist_id.slice(0, 12)}...
+                          </span>
+                          <span className="text-gray-400">
+                            <strong>Location:</strong> Lat {incident.location?.lat}, Lng {incident.location?.lng}
+                          </span>
+                          <span className="text-gray-400">
+                            <strong>Reported:</strong> {new Date(incident.reported_at).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right ml-6">
+                        <div className={`px-3 py-1 rounded-full text-sm font-semibold border mb-2 ${
+                          incident.status === 'open' ? 'text-red-400 bg-red-400/20 border-red-400/30' :
+                          incident.status === 'investigating' ? 'text-yellow-400 bg-yellow-400/20 border-yellow-400/30' :
+                          'text-green-400 bg-green-400/20 border-green-400/30'
+                        }`}>
+                          {incident.status.toUpperCase()}
+                        </div>
+                        <div className={`text-sm font-semibold ${
+                          incident.severity === 'critical' ? 'text-red-400' :
+                          incident.severity === 'high' ? 'text-orange-400' :
+                          incident.severity === 'medium' ? 'text-yellow-400' :
+                          'text-green-400'
+                        }`}>
+                          {incident.severity.toUpperCase()} PRIORITY
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500">
+                          Click to view FIR details
+                        </div>
                       </div>
                     </div>
                   </div>
