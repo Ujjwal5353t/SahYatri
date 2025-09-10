@@ -14,6 +14,8 @@ const Dashboard = ({ onLogout }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedFIR, setSelectedFIR] = useState(null);
+  const [isFIRModalOpen, setIsFIRModalOpen] = useState(false);
 
   useEffect(() => {
     initializeDashboard();
