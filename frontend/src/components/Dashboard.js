@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TouristMap from './TouristMap';
+import EnhancedMap from './EnhancedMap';
+import FIRModal from './FIRModal';
+import SettingsPage from './SettingsPage';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
