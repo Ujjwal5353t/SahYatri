@@ -299,12 +299,19 @@ const Dashboard = ({ onLogout }) => {
 
         {activeTab === 'settings' && (
           <div className="fade-in">
-            <h2 className="section-title">System Settings</h2>
-            <div className="stat-card">
-              <p className="text-gray-300">Settings panel coming soon...</p>
-            </div>
+            <SettingsPage />
           </div>
         )}
+
+        {/* FIR Modal */}
+        <FIRModal 
+          isOpen={isFIRModalOpen}
+          onClose={() => {
+            setIsFIRModalOpen(false);
+            setSelectedFIR(null);
+          }}
+          firData={selectedFIR}
+        />
       </main>
     </div>
   );
