@@ -101,7 +101,7 @@ const Dashboard = ({ onLogout }) => {
     <div className="dashboard">
       {/* Header */}
       <header className="dashboard-header">
-        <h1 className="dashboard-title">Tourist Safety Monitoring System</h1>
+        <h1 className="dashboard-title">SahYatri</h1>
         <nav className="dashboard-nav">
           <div 
             className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
