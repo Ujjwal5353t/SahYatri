@@ -140,6 +140,7 @@ const Dashboard = ({ onLogout }) => {
 
       {/* Main Content */}
       <main className="dashboard-content">
+
         {activeTab === 'dashboard' && (
           <>
             {/* Stats Grid */}
